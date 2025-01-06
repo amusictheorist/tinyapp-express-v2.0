@@ -6,7 +6,7 @@ const userQueries = require('../queries/user_queries');
 
 // Route for home
 router.get('/', (req, res) => {
-  res.redirect('urls_index');
+  res.redirect('urls');
 });
 
 // GET /urls
