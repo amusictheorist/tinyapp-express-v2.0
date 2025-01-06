@@ -1,5 +1,12 @@
 const db = require('../db/connection');
 
+const createUser = (email, password) => {
+  return db.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id', [email, password])
+  .then(data => {
+    return data.rows[0].id;
+  });
+};
+
 const getUserById = (id) => {
   return db.query('SELECT * FROM users WHERE id = $1', [id])
   .then(data => {
@@ -14,11 +21,5 @@ const getUserByEmail = (email) => {
   });
 };
 
-const createUser = (email, password) => {
-  return db.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id', [email, password])
-  .then(data => {
-    return data.rows[0].id;
-  });
-};
 
 module.exports = { getUserById, getUserByEmail, createUser };

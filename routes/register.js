@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const { getUserByEmail, createUser } = require('../queries/user_queries');
 
@@ -22,7 +23,8 @@ router.post('/', async (req, res) => {
       return res.status(400).send('User is already registered!');
     }
 
-    const newUserId = await createUser(email, password);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUserId = await createUser(email, hashedPassword);
 
     res.redirect('/urls');
   } catch (error) {
