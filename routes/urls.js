@@ -100,22 +100,18 @@ router.post('/urls/:id/delete', async (req, res) => {
   const userId = req.session.userId;
   const shortURL = req.params.id;
 
-  console.log('Attempting to delete URL with shortURL: ', shortURL); // Debugging line
-
   if (!userId) {
     return res.status(401).redirect('/login');
   }
 
   try {
     const url = await urlQueries.getSpecificUrl(shortURL, userId);
-    console.log('URL fetched for deletion: ', url); // Check the output
 
     if (!url) {
       return res.status(403).send('You are not authorized to delete this URL!');
     }
 
     await urlQueries.deleteUrl(shortURL);
-    console.log('Deleted URL with shortURL: ', shortURL);
 
     res.redirect('/urls');
   } catch (error) {
