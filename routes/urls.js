@@ -18,8 +18,8 @@ router.get('/urls', async (req, res) => {
   }
 
   try {
-    const user = await userQueries.getUserById(userId);
-    const urls = await urlQueries.getUrlsByUser(userId);
+    const user = userId ? await userQueries.getUserById(userId) : null;
+    const urls = await urlQueries.getAllUrls();
 
     const templateVars = { user, urls };
     res.render('urls_index', templateVars);
