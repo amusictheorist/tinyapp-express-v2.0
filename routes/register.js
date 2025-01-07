@@ -24,8 +24,9 @@ router.post('/', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUserId = await createUser(email, hashedPassword);
+    const newUser = await createUser(email, hashedPassword);
 
+    req.session.userId = newUser.id;
     res.redirect('/urls');
   } catch (error) {
     console.error('Error creating user: ', error.message);
