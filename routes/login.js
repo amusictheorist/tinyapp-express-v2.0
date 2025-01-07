@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const { getUserByEmail } = require('../queries/user_queries');
 
@@ -14,8 +15,13 @@ router.post('/', async (req, res) => {
 
   try {
     const user = await getUserByEmail(email);
+    if (!user) {
+      return res.status(403).send('Invalid email or password');
+    }
 
-    if (!user || user.password !== password) {
+    const verifyPassword = await bcrypt.compare(password, user.password);
+    
+    if (!verifyPassword) {
       return res.status(403).send('Invalid email or password');
     }
     
