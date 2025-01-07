@@ -1,9 +1,9 @@
 const db = require('../db/connection');
 
 const createUser = (email, password) => {
-  return db.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id', [email, password])
+  return db.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email', [email, password])
   .then(data => {
-    return data.rows[0].id;
+    return data.rows[0];
   });
 };
 
