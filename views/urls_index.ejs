@@ -34,7 +34,9 @@
           <% for (let url of urls) { %>
             <tr>
               <td><%= url.shorturl %></td>
-              <td><%= url.longurl %></td>
+              <td>
+                <a href="<%= url.longurl %>" target="_blank"><%= url.longurl %></a>
+              </td>
               <td>
                 <% if (user && user.id === url.user_id) { %>
                 <a href="/urls/<%= url.shorturl %>">
