@@ -43,27 +43,29 @@ router.get('/urls/new', (req, res) => {
 
 // GET /urls/:id
 router.get('/urls/:id', async (req, res) => {
+  const shortURL = req.params.id;
   const userId = req.session.userId;
-  const urlId = req.params.id;
 
   if (!userId) {
     return res.status(401).redirect('/login');
   }
 
   try {
-    const url = await urlQueries.getSpecificUrl(urlId, userId);
+    const user = await userQueries.getUserById(userId);
+    const url = await urlQueries.getSpecificUrl(shortURL, userId);
 
     if (!url) {
       return res.status(403).send('You are not authorized to view or edit this URL');
     }
 
-    const templateVars = { user: req.session.user, url: url };
+    const templateVars = { user, url };
     res.render('urls_show', templateVars);
   } catch (error) {
     console.error('Error fetching URL for edit: ', error);
     res.status(500).send('Internal server error');
   }
 });
+
 
 // POST /urls/:id
 router.post('/urls/:id', async (req, res) => {
@@ -94,54 +96,47 @@ router.post('/urls/:id', async (req, res) => {
 // POST /urls/:id/delete
 router.post('/urls/:id/delete', async (req, res) => {
   const userId = req.session.userId;
-
-  if (!userId) {
-    res.status(401).redirect('/login');
-  }
-
-  const urlId = req.params.id;
-
-  try {
-    const result = await urlQueries.getSpecificUrl(urlId, userId);
-    const url = result.rows[0];
-
-    if (!url) {
-      return res.status(403).send('You are not authorized to delete this URL!')
-    }
-
-    await urlQueries.deleteUrl(urlId);
-
-    res.redirect('/urls');
-  } catch (error) {
-    console.error('Error deleting URL: ', error);
-    res.status (500).send('Internal server error')
-  }
-});
-
-
-// GET /u/:id
-router.get('/u/:id', async (req, res) => {
-  const userId = req.session.userId;
   const shortURL = req.params.id;
+
+  console.log('Attempting to delete URL with shortURL: ', shortURL); // Debugging line
 
   if (!userId) {
     return res.status(401).redirect('/login');
   }
 
   try {
+    const url = await urlQueries.getSpecificUrl(shortURL, userId);
+    console.log('URL fetched for deletion: ', url); // Check the output
+
+    if (!url) {
+      return res.status(403).send('You are not authorized to delete this URL!');
+    }
+
+    await urlQueries.deleteUrl(shortURL);
+    console.log('Deleted URL with shortURL: ', shortURL);
+
+    res.redirect('/urls');
+  } catch (error) {
+    console.error('Error deleting URL: ', error.message);
+    res.status(500).send('Internal server error');
+  }
+});
+
+
+
+// GET /u/:id
+router.get('/u/:id', async (req, res) => {
+  const shortURL = req.params.id;
+
+  try {
     const url = await urlQueries.getUrlByShortUrl(shortURL);
 
-    if (!url || url.user_id !== userId) {
-      return res.status(403).send('You are not authorized to view this URL!');
+    if (!url) {
+      return res.status(404).send('URL not found');
     }
-
-    const templateVars = {
-      user
-    }
-
-    res.redirect(url.longurl);
-  } catch (error) {
-    console.error('Error redirecting to URL: ', error);
+    res.redirect(url.longurl)
+    } catch (error) {
+    console.error('Error redirecting to URL: ', error.message, error.stack);
     res.status(500).send('Internal server error')
   }
 });
@@ -158,6 +153,7 @@ router.post('/urls', async (req, res) => {
   try {
     const shortURL = generateRandomString();
     await urlQueries.createUrl(shortURL, longURL, userId);
+    console.log(`URL created: ${shortURL}`);
     res.redirect(`/urls/${shortURL}`);
   } catch (error) {
     console.error('Error creating URL: ', error);
