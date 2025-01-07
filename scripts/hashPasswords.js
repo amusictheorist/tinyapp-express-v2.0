@@ -6,9 +6,11 @@ const bcrypt = require('bcrypt');
 const users = [
   { id: 1, email: 'a@a.com', password: 'asdf' },
   { id: 2, email: 'b@b.com', password: 'qwer' },
-  { id: 3, email: 'c@c.com', password: 'zxcv' }
+  { id: 3, email: 'c@c.com', password: 'zxcv' },
+  { id: 4, email: 'd@d.com', password: '1234' },
+  { id: 5, email: 'e@e.com', password: '4567' },
+  { id: 6, email: 'f@f.com', password: '7890' }
 ];
-
 // Function to hash passwords and update them in the database
 async function hashPasswords() {
   try {
