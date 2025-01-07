@@ -15,16 +15,17 @@ router.post('/', async (req, res) => {
 
   try {
     const user = await getUserByEmail(email);
+
     if (!user) {
       return res.status(403).send('Invalid email or password');
     }
 
-    const verifyPassword = await bcrypt.compare(password, user.password);
-    
-    if (!verifyPassword) {
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
       return res.status(403).send('Invalid email or password');
     }
-    
+
     req.session.userId = user.id;
     res.redirect('/urls');
   } catch (error) {
