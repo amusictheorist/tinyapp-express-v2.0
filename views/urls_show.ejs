@@ -29,6 +29,7 @@
             Short URL ID: <a href="/u/<%= url.shorturl %>"><%= url.shorturl %></a>
           </p>
         </div>
+        <% if (isOwner) { %>
         <div class="card-footer text-muted">
           <form action="/urls/<%= url.shorturl %>" method="POST">
             <label for="longURL">New URL:</label>
@@ -36,6 +37,11 @@
             <button type="submit" class="btn btn-primary mt-2">Submit</button>
           </form>
         </div>
+        <% } else { %>
+          <div class="card-footer text-muted">
+            <p class="text-danger">You do not have permission to edit this URL!</p>
+          </div>
+          <% } %>
       </div>
     </main>
 

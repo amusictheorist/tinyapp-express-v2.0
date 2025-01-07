@@ -55,10 +55,12 @@ router.get('/urls/:id', async (req, res) => {
     const url = await urlQueries.getSpecificUrl(shortURL, userId);
 
     if (!url) {
-      return res.status(403).send('You are not authorized to view or edit this URL');
+      return res.status(404).send('URL not found');
     }
 
-    const templateVars = { user, url };
+    const isOwner = url.user_id === userId;
+
+    const templateVars = { user, url, isOwner };
     res.render('urls_show', templateVars);
   } catch (error) {
     console.error('Error fetching URL for edit: ', error);
