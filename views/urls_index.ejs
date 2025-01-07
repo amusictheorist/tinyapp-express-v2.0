@@ -36,14 +36,22 @@
               <td><%= url.shorturl %></td>
               <td><%= url.longurl %></td>
               <td>
-                <a href="/urls/<%= url.id %>">
+                <% if (user && user.id === url.user_id) { %>
+                <a href="/urls/<%= url.shorturl %>">
                   <button class="btn btn-primary">Edit</button>
                 </a>
+                <% } else { %>
+                  <button class="btn btn-secondary" disabled>Not allowed</button>
+                  <% } %>
               </td>
               <td>
+                <% if (user && user.id === url.user_id) { %>
                 <form method="POST" action="/urls/<%= url.shorturl %>/delete">
                   <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
+                <% } else { %>
+                  <button class="btn btn-secondary" disabled>Not allowed</button>
+                  <% } %>
               </td>
             </tr>
           <% } %>

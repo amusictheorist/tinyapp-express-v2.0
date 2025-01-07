@@ -1,5 +1,13 @@
 const db = require('../db/connection');
 
+const getAllUrls = () => {
+  return db.query(`
+    SELECT urls.*, users.email AS owner_email
+    FROM urls
+    JOIN users ON urls.user_id = users.id
+    `).then(data => data.rows);
+};
+
 const getUrlsByUser = (userId) => {
   return db.query('SELECT * FROM urls WHERE user_id = $1', [userId])
   .then(data => {
@@ -13,7 +21,6 @@ const getSpecificUrl = (shortURL, userId) => {
     return data.rows[0];
   });
 };
-
 
 const getUrlByShortUrl = (shortURL) => {
   return db.query('SELECT longurl FROM urls WHERE shorturl = $1', [shortURL])
@@ -30,7 +37,6 @@ const deleteUrl = (shortURL) => {
   return db.query('DELETE FROM urls WHERE shorturl = $1', [shortURL]);
 };
 
-
 const createUrl = (shortURL, longURL, userId) => {
   return db.query('INSERT INTO urls (shorturl, longurl, user_id) VALUES ($1, $2, $3) RETURNING shorturl', [shortURL, longURL, userId])
   .then(data => {
@@ -38,4 +44,4 @@ const createUrl = (shortURL, longURL, userId) => {
   });
 };
 
-module.exports = { getUrlsByUser, getSpecificUrl, getUrlByShortUrl, updateSpecificUrl, deleteUrl, createUrl };
+module.exports = { getAllUrls, getUrlsByUser, getSpecificUrl, getUrlByShortUrl, updateSpecificUrl, deleteUrl, createUrl };
