@@ -37,7 +37,7 @@
               <td><%= url.longurl %></td>
               <td>
                 <% if (user && user.id === url.user_id) { %>
-                <a href="/urls/<%= url.id %>">
+                <a href="/urls/<%= url.shorturl %>">
                   <button class="btn btn-primary">Edit</button>
                 </a>
                 <% } else { %>
