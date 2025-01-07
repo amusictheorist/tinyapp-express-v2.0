@@ -14,23 +14,17 @@ router.post('/', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Get the user by email
     const user = await getUserByEmail(email);
-    console.log('User fetched:', user); // Check the fetched user
-
-    // If user doesn't exist or the password doesn't match
     if (!user) {
       return res.status(403).send('Invalid email or password');
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log('Password match result:', passwordMatch); // Check if passwords match
-
-    if (!passwordMatch) {
+    const verifyPassword = await bcrypt.compare(password, user.password);
+    
+    if (!verifyPassword) {
       return res.status(403).send('Invalid email or password');
     }
-
-    // If credentials are correct, set the session and redirect
+    
     req.session.userId = user.id;
     res.redirect('/urls');
   } catch (error) {
