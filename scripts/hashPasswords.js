@@ -11,6 +11,7 @@ const users = [
   { id: 5, email: 'e@e.com', password: '4567' },
   { id: 6, email: 'f@f.com', password: '7890' }
 ];
+
 // Function to hash passwords and update them in the database
 async function hashPasswords() {
   try {
