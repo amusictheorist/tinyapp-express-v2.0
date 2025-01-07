@@ -5,7 +5,7 @@ const { getUserByEmail } = require('../queries/user_queries');
 
 // GET /login
 router.get('/', (req, res) => {
-  const templateVars = { user: null }
+  const templateVars = { user: null };
   res.render('login', templateVars);
 });
 
