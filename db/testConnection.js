@@ -1,10 +1,15 @@
-const db = require('./connection');
+const { Pool } = require('pg');
 
-db.query('SELECT current_database();')
-  .then(result => {
-    console.log('Connected to database:', result.rows[0].current_database);
-    db.end();
-  })
-  .catch(err => {
-    console.error('Error connecting to database:', err);
-  });
+require('dotenv').config();
+
+const dbParams = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.TEST_DB_NAME,
+  port: process.env.DB_PORT
+};
+
+const db = new Pool(dbParams);
+
+module.exports = { db };

@@ -1,4 +1,4 @@
-const db = require('../connection');
+const { db } = process.env.NODE_ENV === 'test' ? require('../testConnection') : require('../connection');
 
 const getAllUrls = () => {
   return db.query(`
