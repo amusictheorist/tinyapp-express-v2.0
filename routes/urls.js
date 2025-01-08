@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { generateRandomString } = require('../helpers');
-const urlQueries = require('../queries/url_queries');
-const userQueries = require('../queries/user_queries');
+const urlQueries = require('../db/queries/url_queries');
+const userQueries = require('../db/queries/user_queries');
 
 // Route for home
 router.get('/', (req, res) => {

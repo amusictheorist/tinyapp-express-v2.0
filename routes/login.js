@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const { getUserByEmail } = require('../queries/user_queries');
+const { getUserByEmail } = require('../db/queries/user_queries');
 
 // GET /login
 router.get('/', (req, res) => {

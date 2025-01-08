@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const { getUserByEmail, createUser } = require('../queries/user_queries');
+const { getUserByEmail, createUser } = require('../db/queries/user_queries');
 
 // GET /register
 router.get('/', (req, res) => {
