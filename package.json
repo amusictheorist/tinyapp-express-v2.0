@@ -6,7 +6,7 @@
   "scripts": {
     "start": "/.node_modules/.bin/nodemon -L express-server.js",
     "db:reset": "node bin/resetDB.js",
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha"
   },
   "repository": {
     "type": "git",

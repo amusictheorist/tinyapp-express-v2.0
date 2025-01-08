@@ -1,3 +1,4 @@
+-- To seed test db run NODE_ENV=test psql -U YOUR_DB_USER -d TEST_DB_NAME -f db/seeds/seeds.sql
 INSERT INTO users (email, password) VALUES
 ('a@a.com', 'asdf'),
 ('b@b.com', 'qwer'),
