@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 const { expect } = require('chai');
-const { db, connectToTestDatabase } = require('../db/testConnection');
+const { db } = require('../db/testConnection');
 const urlQueries = require('../db/queries/url_queries');
 
 describe('URL queries', () => {
