@@ -1,4 +1,4 @@
-const db = require('../connection');
+const { db } = process.env.NODE_ENV === 'test' ? require('../testConnection') : require('../connection');
 
 const createUser = (email, password) => {
   return db.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email', [email, password])
