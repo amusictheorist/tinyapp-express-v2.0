@@ -17,7 +17,11 @@
   - Clear indicators show which URLs can be edited or deleted based on ownership.
 
   ## Final product
-
+  !["Registration page allows a new user to create an account"](https://github.com/amusictheorist/tinyapp-express-v2.0/blob/main/docs/registration-page.png?raw=true)
+  !["Login in page allows returning users to log back in or asks new users to register first"](https://github.com/amusictheorist/tinyapp-express-v2.0/blob/main/docs/login-page.png?raw=true)
+  !["Main page displays community urls and disallows actions if user does not own the urls"](https://github.com/amusictheorist/tinyapp-express-v2.0/blob/main/docs/urls-page.png?raw=true)
+  !["Create page allows a user to enter a new url to be shortened"](https://github.com/amusictheorist/tinyapp-express-v2.0/blob/main/docs/create-page.png?raw=true)
+  !["Edit page allows a user to edit an existing saved url"](https://github.com/amusictheorist/tinyapp-express-v2.0/blob/main/docs/edit-page.png?raw=true)
 
   ## Dependencies
   ### Regular dependencies
