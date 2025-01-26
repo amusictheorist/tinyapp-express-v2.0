@@ -49,7 +49,7 @@
 ```bash
 npm install
 ```
-3. **Set up he databse:**
+3. **Set up the databse:**
 - Ensure PostgreSQL is installed and running.
 - Run the database reset script, which will execute the schema and seeds. It can also be used to reset the database at any point:
 ```bash
