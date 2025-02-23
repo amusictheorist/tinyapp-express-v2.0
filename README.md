@@ -1,6 +1,6 @@
 # Express TinyApp v2.0
 
-**TinyApp** is a full-stack web aplication built with Node.js and Express that allows users to shorten long URLs, similar to bit.ly. This is version 2 of a previously built app, which can be found here: https://github.com/amusictheorist/tiny-app-v1.0.
+**TinyApp** is a full-stack web application built with Node.js and Express that allows users to shorten long URLs, similar to bit.ly. This is version 2 of a previously built app, which can be found here: https://github.com/amusictheorist/tiny-app-v1.0.
   
 ## New features and enhancements
 - **Express Router integration:** routes have been refactored to use Express Router for better modularity and maintainability.
@@ -49,7 +49,7 @@
 ```bash
 npm install
 ```
-3. **Set up he databse:**
+3. **Set up the databse:**
 - Ensure PostgreSQL is installed and running.
 - Run the database reset script, which will execute the schema and seeds. It can also be used to reset the database at any point:
 ```bash
