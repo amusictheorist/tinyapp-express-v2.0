@@ -4,7 +4,7 @@ require('dotenv').config();
 // Other dependencies
 const fs = require('fs');
 const chalk = require('chalk');
-const db = require('../db/connection');
+const { db } = require('../db/connection');
 
 // Loads the schema files from db/schema
 const runSchemaFiles = async () => {
