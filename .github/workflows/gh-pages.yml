@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main ]
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check-out repository
@@ -14,15 +14,15 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         
-      - name: Install project
+      - name: Install project dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run-script build
+      - name: Start project (or deploy command if needed)
+        run: npm start
         
       - name: Github Pages
         uses: crazy-max/ghaction-github-pages@v2.1.3
         with:
-          build_dir: dist
+          build_dir: .  # Set to your root directory if not using a dist folder
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
